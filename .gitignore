@@ -168,6 +168,7 @@ nsd_data/
 src/fmri/
 cache/
 checkpoints/
+src/evals/
 *.pth
 *.pt
 *.ckpt

@@ -288,7 +288,7 @@ def unclip_recon(x, diffusion_engine, vector_suffix,
             return diffusion_engine.denoiser(diffusion_engine.model, x, sigma, c)
 
         samples_z = diffusion_engine.sampler(denoiser, noised_z, cond=c, uc=uc)
-        samples_x = diffusion_engine.decode_first_stage(samples_z)
+        samples_x = diffusion_engine.decode_first_stage(samples_z.float()) # match first_stage_model's fp32 weights (see OOM fix in recon_inference.py)
         samples = torch.clamp((samples_x*.8+.2), min=0.0, max=1.0)
         # samples = torch.clamp((samples_x + .5) / 2.0, min=0.0, max=1.0)
         return samples
